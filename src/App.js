@@ -1,20 +1,23 @@
 import React from 'react';
 import './App.css';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Work from './pages/Work';
 
 function App() {
   return (
-    <div className="App">
-      <div className='big-container'>
-        <div className='top-container'>
-          <img className='website-icon icon' src={require('./assets/website-icon.png')} alt='website-icon' />
-          <img className='graphic-design-icon icon' src={require('./assets/graphic-design-icon.png')} alt='website-icon' />
-          <img className='about-me-icon icon' src={require('./assets/about-me-icon.png')} alt='website-icon' />
-          <img className='writing-icon icon' src={require('./assets/writing-icon.png')} alt='website-icon' />
-        </div>
-        <div className='title-container'><img className="title-icon" src={require('./assets/title-icon.png')} alt="title-icon" /></div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/about" component={About} />
+          <Route path="/work" component={Work} />
+          <Route exact path="/" component={Home} />
+        </Switch>
       </div>
-    </div>
+    </Router>
   );
 }
+
 
 export default App;
