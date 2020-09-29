@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Paper, ButtonBase } from '@material-ui/core';
 import projects from '../data/projects';
+import Modal from '../components/Modal';
 
 const useStyles = makeStyles((theme) => ({
     grid: {
@@ -23,14 +24,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
+// openModal(image, description) {
+
+// }
+
+
 
 export default function Work() {
     const classes = useStyles();
+    const [show, setShow] = useState(false);
+    const [image, description] = useState('');
+    const closeModalHandler = () => setShow(false);
     const projectsList = projects.map((project, index) => {
         return (
             <Grid key={index} item xs={12} md={6} lg={3}>
                 <Paper className={classes.paper}>
-                    <ButtonBase>
+                    <ButtonBase onClick={() => {
+                        setShow(true);
+                        description(project.description);
+
+                    }}>
+
                         <img className={classes.img} alt='project' src={project.image} />
                     </ButtonBase>
                 </Paper>
@@ -40,11 +54,13 @@ export default function Work() {
 
     return (
         <div>
+            {show ? <div onClick={closeModalHandler} className='back-drop'></div> : null}
             <Link to="/"><div><h3>Back</h3></div></Link>
             <h1>Work</h1>
             <Grid container spacing={2} className={classes.grid}>
                 {projectsList}
             </Grid>
+            <Modal show={show} close={closeModalHandler} />
         </div>
     );
 }
