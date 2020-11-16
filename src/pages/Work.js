@@ -33,15 +33,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Work() {
     const classes = useStyles();
     const [show, setShow] = useState(false);
-    const [image, description] = useState('');
+    const [info, setInfo] = useState('');
+    const [image, setImage] = useState('');
+    const [title, setTitle] = useState('');
     const closeModalHandler = () => setShow(false);
     const projectsList = projects.map((project, index) => {
         return (
             <Grid key={index} item xs={12} md={6} lg={3}>
                 <Paper className={classes.paper}>
                     <ButtonBase onClick={() => {
+                        setInfo(project.description);
+                        setImage(project.image);
+                        setTitle(project.title);
                         setShow(true);
-                        description(project.description);
 
                     }}>
 
@@ -60,7 +64,7 @@ export default function Work() {
             <Grid container spacing={2} className={classes.grid}>
                 {projectsList}
             </Grid>
-            <Modal show={show} close={closeModalHandler} />
+            <Modal show={show} close={closeModalHandler} description={info} image={image} title={title} />
         </div>
     );
 }
